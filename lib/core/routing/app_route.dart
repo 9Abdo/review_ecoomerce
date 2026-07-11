@@ -1,0 +1,13 @@
+class RoutePath {
+  static const String loginPath = "/login";
+  static const String signUpPath = "/signup";
+  static const String mainHomePath = "/mainHome";
+  static const String productDetailsPath = "/productDetails";
+}
+
+class RouteName {
+  static const String loginName = "login";
+  static const String signUpName = "signup";
+  static const String mainHomeName = "mainHome";
+  static const String productDetailsName = "productDetails";
+}
