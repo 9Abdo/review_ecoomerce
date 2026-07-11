@@ -21,12 +21,7 @@ class ProductBuy extends StatelessWidget {
         padding: EdgeInsets.all(8.sp),
         child: Row(
           children: [
-            ImageWidget(
-              image: "Assets/images/shose.jpg",
-              width: 83,
-              height: 79,
-              radius: 4,
-            ),
+           //image
             SizedBox(width: 8.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -21,7 +21,7 @@ class AppStyle {
   );
   static TextStyle buttonStyle = TextStyle(
     color: Colors.white,
-    fontSize: 14,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w500,
   );
   static TextStyle selecttext = TextStyle(

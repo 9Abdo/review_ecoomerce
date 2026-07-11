@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:review_ecommerce/core/constants/app_style.dart';
 import 'package:review_ecommerce/core/widgets/custombutton.dart';
 import 'package:review_ecommerce/core/widgets/image_widget.dart';
+import 'package:review_ecommerce/features/models/home_modal.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key, required this.image});
-  final String image;
+  const ProductDetails({super.key, required this.homemodel});
+  final Homemodel homemodel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +24,20 @@ class ProductDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageWidget(
-                    image: image,
+                  Imagewidget(
                     width: double.infinity,
-                    height: 300,
+                    height: 370,
+                    image: homemodel.image,
                   ),
                   SizedBox(height: 16.h),
-                  Text("Shoose", style: AppStyle.black24w600),
-                  SizedBox(height: 16),
                   Text(
-                    "Blue T Shirt . Good for All Men  Good for All Men and  Good for All Men and Suits for All of Them.Blue T Shirt Suits for All of Them.Blue T Shirt and Suits for All of Them.Blue T Shirt  Good for All Men and Suits for All of Them.Blue T Shirt . Good for All Men and Suits for All of Them Blue T Shirt . Good for All Men and Suits for All of Them.Blue T Shirt . Good for All Men and Suits for All of Them Blue T Shirt . Good for All Men and Suits for All of Them.Blue T Shirt . Good for All Men and Suits for All of Them",
-                    style: AppStyle.subtitle,
+                    homemodel.clothesType,
+                    style: AppStyle.black24w600,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
+                  SizedBox(height: 16),
+                  Text(homemodel.description),
                   SizedBox(height: 130.h),
                 ],
               ),
@@ -60,8 +63,7 @@ class ProductDetails extends StatelessWidget {
                           children: [
                             Text("Price", style: AppStyle.priceStyle),
                             Text(
-                              r'$'
-                              "1999",
+                              "${homemodel.price}\$",
                               style: AppStyle.black24w600,
                             ),
                           ],
@@ -80,7 +82,6 @@ class ProductDetails extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
     );

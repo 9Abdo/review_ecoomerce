@@ -33,6 +33,7 @@ class _SignupPageViewState extends State<LoginpageView> {
         listener: (context, state) {
           if (state is SuccessState) {
             showSankBar(context, text: "Login Successful", color: Colors.green);
+            context.pushReplacement(RouteName.mainHomeName);
           }
           if (state is FailureState) {
             showSankBar(context, text: state.error, color: Colors.red);

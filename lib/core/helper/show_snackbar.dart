@@ -1,12 +1,25 @@
-
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:review_ecommerce/core/constants/app_style.dart';
 
-showSankBar(
+void showSankBar(
   BuildContext context, {
   required String text,
   required Color color,
 }) {
-  return ScaffoldMessenger.of(
-    context,
-  ).showSnackBar(SnackBar(content: Text(text),backgroundColor: color,));
+  AnimatedSnackBar(
+    mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+
+    builder: (context) {
+      return Container(
+        width: double.infinity,
+        height: 70.h,
+        padding: const EdgeInsets.all(8),
+
+        color: color,
+        child: Center(child: Text(text, style: AppStyle.buttonStyle)),
+      );
+    },
+  ).show(context);
 }

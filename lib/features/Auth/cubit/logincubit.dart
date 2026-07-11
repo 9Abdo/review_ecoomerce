@@ -19,7 +19,6 @@ class LoginCubit extends Cubit<LoginState> {
         password: password,
       );
 
-      print(user.token);
 
       emit(SuccessState());
     } catch (e) {

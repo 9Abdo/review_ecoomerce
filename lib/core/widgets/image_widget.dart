@@ -1,28 +1,42 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({
+class Imagewidget extends StatelessWidget {
+  const Imagewidget({
     super.key,
-    required this.image,
     required this.width,
     required this.height,
-    this.radius = 10,
+    required this.image,
   });
-  final String image;
+
   final double width;
   final double height;
-  final double radius;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width.w,
-      height: height.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius.r),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8.r),
 
-        image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
+      child: CachedNetworkImage(
+        useOldImageOnUrlChange: false,
+        width: width.w,
+        height: height.h,
+        imageUrl: image,
+
+        fit: BoxFit.cover,
+
+        placeholder: (context, url) {
+          return const Center(child: CircularProgressIndicator());
+        },
+
+        errorWidget: (context, url, error) {
+          return Container(
+            color: Colors.grey.shade300,
+            child: const Icon(Icons.error),
+          );
+        },
       ),
     );
   }

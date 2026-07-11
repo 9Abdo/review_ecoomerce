@@ -7,6 +7,7 @@ import 'package:review_ecommerce/features/Auth/Presentation/views/loginpage_view
 import 'package:review_ecommerce/features/Auth/cubit/logincubit.dart';
 import 'package:review_ecommerce/features/Auth/services/user_services.dart';
 import 'package:review_ecommerce/features/home/views/main_home_view.dart';
+import 'package:review_ecommerce/features/models/home_modal.dart';
 import 'package:review_ecommerce/features/product_details/product_details.dart';
 
 GoRouter goRouter = GoRouter(
@@ -35,8 +36,8 @@ GoRouter goRouter = GoRouter(
       name: RouteName.productDetailsName,
 
       builder: (context, state) {
-        final String image = state.extra as String;
-        return ProductDetails(image: image);
+        final Homemodel homemodel = state.extra as Homemodel;
+        return ProductDetails(homemodel: homemodel,);
       },
     ),
   ],
