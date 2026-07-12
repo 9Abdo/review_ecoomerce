@@ -2,49 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:review_ecommerce/core/constants/app_color.dart';
 import 'package:review_ecommerce/core/constants/app_style.dart';
+import 'package:review_ecommerce/features/models/categorymodal.dart';
 
-class ListviewCategores extends StatefulWidget {
-  const ListviewCategores({super.key});
+class ListviewCategores extends StatelessWidget {
+  const ListviewCategores({
+    super.key,
+    required this.categories,
+    required this.selectedIndex,
+    required this.onTap,
+  });
 
-  @override
-  State<ListviewCategores> createState() => _ListviewCategoresState();
-}
+  final List<Categorymodal> categories;
+  final int selectedIndex;
+  final Function(int) onTap;
 
-class _ListviewCategoresState extends State<ListviewCategores> {
-  List<String> category = ["All", "TShirts", "Jeans", "Shoose"];
-  int selctedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: category.length,
-        physics: const BouncingScrollPhysics(),
+        itemCount: categories.length,
         itemBuilder: (context, index) {
-          final isSelcted = selctedIndex == index;
+          final isSelected = selectedIndex == index;
+
           return GestureDetector(
-            onTap: () {
-              setState(() {
-                selctedIndex = index;
-              });
-            },
+            onTap: () => onTap(index),
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 4.w),
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 10.h,
+              ),
               decoration: BoxDecoration(
-                color: isSelcted ? AppColor.primaycolor : Colors.white60,
+                color: isSelected
+                    ? AppColor.primaycolor
+                    : Colors.white60,
                 borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  color: isSelcted
+                  color: isSelected
                       ? AppColor.primaycolor
                       : Colors.grey.shade300,
                 ),
               ),
               child: Center(
                 child: Text(
-                  category[index],
-                  style: isSelcted ? AppStyle.selecttext : AppStyle.textfield,
+                  categories[index].name,
+                  style: isSelected
+                      ? AppStyle.selecttext
+                      : AppStyle.textfield,
                 ),
               ),
             ),

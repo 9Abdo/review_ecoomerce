@@ -3,6 +3,7 @@ class RoutePath {
   static const String signUpPath = "/signup";
   static const String mainHomePath = "/mainHome";
   static const String productDetailsPath = "/productDetails";
+  static const String addreessPath = "/addressPath";
 }
 
 class RouteName {
@@ -10,4 +11,5 @@ class RouteName {
   static const String signUpName = "signup";
   static const String mainHomeName = "mainHome";
   static const String productDetailsName = "productDetails";
+  static const String addreessName = "addreessName";
 }

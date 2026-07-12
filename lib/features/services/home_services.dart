@@ -14,4 +14,15 @@ class HomeServices {
         .toList();
     return dateHome;
   }
+  Future<List<Homemodel>> getProductsByCategory(int categoryId) async {
+    Response response = await dio.get(
+      "https://api.escuelajs.co/api/v1/categories/$categoryId/products",
+    );
+
+    List data = response.data;
+
+    return data
+        .map((e) => Homemodel.fromjson(e))
+        .toList();
+  }
 }

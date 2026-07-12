@@ -18,7 +18,12 @@ void showSankBar(
         padding: const EdgeInsets.all(8),
 
         color: color,
-        child: Center(child: Text(text, style: AppStyle.buttonStyle)),
+        child: Center(
+          child: Text(
+            text,
+            style: AppStyle.buttonStyle.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
       );
     },
   ).show(context);

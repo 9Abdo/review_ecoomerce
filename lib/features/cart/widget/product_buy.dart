@@ -3,11 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:review_ecommerce/core/constants/app_color.dart';
 import 'package:review_ecommerce/core/constants/app_style.dart';
 import 'package:review_ecommerce/core/widgets/image_widget.dart';
+
 import 'package:review_ecommerce/features/cart/widget/container_icon.dart';
+import 'package:review_ecommerce/features/models/cart_modal.dart';
 
-class ProductBuy extends StatelessWidget {
-  const ProductBuy({super.key});
+class ProductBuy extends StatefulWidget {
+  const ProductBuy({super.key, required this.cartModal});
+  final CartModal cartModal;
 
+  @override
+  State<ProductBuy> createState() => _ProductBuyState();
+}
+
+class _ProductBuyState extends State<ProductBuy> {
+  int counter = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,18 +30,24 @@ class ProductBuy extends StatelessWidget {
         padding: EdgeInsets.all(8.sp),
         child: Row(
           children: [
-           //image
+            Imagewidget(
+              width: 83.w,
+              height: 79.h,
+              image: widget.cartModal.thumbnail,
+            ),
             SizedBox(width: 8.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Shoose", style: AppStyle.textfield),
+                if (widget.cartModal.title.length >= 9)
+                  Text(
+                    widget.cartModal.title.substring(0, 9),
+                    style: AppStyle.textfield,
+                  )
+                else
+                  Text(widget.cartModal.title, style: AppStyle.textfield),
                 Spacer(),
-                Text(
-                  r'$'
-                  "1989",
-                  style: AppStyle.textfield,
-                ),
+                Text("\$${widget.cartModal.price}", style: AppStyle.textfield),
               ],
             ),
             Spacer(),
@@ -46,11 +61,25 @@ class ProductBuy extends StatelessWidget {
 
                 Row(
                   children: [
-                    ContainerIcon(icon: Icons.remove),
+                    ContainerIcon(
+                      icon: Icons.remove,
+                      onTap: () {
+                        setState(() {
+                          counter--;
+                        });
+                      },
+                    ),
                     SizedBox(width: 8.w),
-                    Text("1"),
+                    Text("${widget.cartModal.quantity}"),
                     SizedBox(width: 8.w),
-                    ContainerIcon(icon: Icons.add),
+                    ContainerIcon(
+                      icon: Icons.add,
+                      onTap: () {
+                        setState(() {
+                          counter++;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ],

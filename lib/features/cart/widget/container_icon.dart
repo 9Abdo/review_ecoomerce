@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ContainerIcon extends StatelessWidget {
-  const ContainerIcon({super.key, required this.icon});
+  const ContainerIcon({super.key, required this.icon, required this.onTap});
   final IconData icon;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 24.w,
-      height: 24.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(3.r),
-        border: Border.all(width: 1.w),
+    return GestureDetector(
+      onTap:onTap ,
+      child: Container(
+        width: 24.w,
+        height: 24.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3.r),
+          border: Border.all(width: 1.w),
+        ),
+        child: Center(child: Icon(icon, size: 16.sp)),
       ),
-      child: Center(child: Icon(icon, size: 16.sp)),
     );
   }
 }
