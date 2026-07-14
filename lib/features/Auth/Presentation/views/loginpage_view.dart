@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +33,11 @@ class _SignupPageViewState extends State<LoginpageView> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is SuccessState) {
-            showSankBar(context, text: "Login Successful", color: Colors.green);
+            showSankBar(
+              context,
+              text: "login_successful".tr(),
+              color: Colors.green,
+            );
             context.pushReplacement(RouteName.mainHomeName);
           }
           if (state is FailureState) {
@@ -54,17 +59,29 @@ class _SignupPageViewState extends State<LoginpageView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomAppbar(title: "Login to your account"),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (context.locale.languageCode == 'en') {
+                                await context.setLocale(const Locale('ar'));
+                              } else {
+                                await context.setLocale(const Locale('en'));
+                              }
+                            },
+                            child: Text("switch Language"),
+                          ),
+                        ),
+                        CustomAppbar(title: "login_to_your_account".tr()),
                         SizedBox(height: 8.h),
                         Text(
-                          "It’s great to see you again.",
+                          "its_great_to_see_you_again".tr(),
                           style: AppStyle.subtitle,
                         ),
                         SizedBox(height: 24.sp),
-                        Text("User Name", style: AppStyle.textfield),
+                        Text("user_name".tr(), style: AppStyle.textfield),
                         SizedBox(height: 8.h),
                         CustomTextField(
-                          hint: "Enter your email address",
+                          hint: "enter_your_email_address".tr(),
                           controller: emailController,
                           //  validator: (value) {
                           //    if (value!.isEmpty) {
@@ -76,10 +93,10 @@ class _SignupPageViewState extends State<LoginpageView> {
                           //  },
                         ),
                         SizedBox(height: 16.h),
-                        Text("PassWord", style: AppStyle.textfield),
+                        Text("password".tr(), style: AppStyle.textfield),
                         SizedBox(height: 8.h),
                         CustomTextField(
-                          hint: "Enter your Password",
+                          hint: "enter_your_password".tr(),
                           controller: passwordController,
                           // validator: (value) {
                           //   if (value!.isEmpty) {
@@ -103,7 +120,7 @@ class _SignupPageViewState extends State<LoginpageView> {
                         ),
                         SizedBox(height: 70.h),
                         Custombutton(
-                          buttonName: "Log in",
+                          buttonName: "log_in".tr(),
                           onPressed: () async {
                             if (formState.currentState!.validate()) {
                               context.read<LoginCubit>().loginCubit(
@@ -116,8 +133,8 @@ class _SignupPageViewState extends State<LoginpageView> {
 
                         SizedBox(height: 250.h),
                         RowAuth(
-                          text: "Don’t have an account? ",
-                          buttontransfer: "Sign Up",
+                          text: "dont_have_an_account".tr(),
+                          buttontransfer: "sign_up".tr(),
                           onTap: () {
                             context.pushReplacementNamed(RouteName.signUpName);
                           },

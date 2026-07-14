@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:review_ecommerce/core/helper/cach_helper.dart';
 import 'package:review_ecommerce/features/Auth/cubit/login_state.dart';
+import 'package:review_ecommerce/features/models/user_model.dart';
 import 'package:review_ecommerce/features/services/user_services.dart';
-
 
 class LoginCubit extends Cubit<LoginState> {
   final UserServices userServices;
@@ -15,13 +16,18 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoadingState());
 
     try {
-      final user = await userServices.postLogin(
+      final UserModel user = await userServices.postLogin(
         username: username,
         password: password,
       );
 
-
-      emit(SuccessState());
+      if (user.token.isNotEmpty) {
+        await CachHelper.saveToken(user.token);
+        print(user.token);
+        emit(SuccessState());
+      } else {
+        emit(FailureState(error: "Token not found"));
+      }
     } catch (e) {
       emit(FailureState(error: e.toString()));
     }

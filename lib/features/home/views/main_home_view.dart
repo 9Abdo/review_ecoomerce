@@ -1,8 +1,7 @@
-import 'package:circle_nav_bar/circle_nav_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:review_ecommerce/core/constants/app_color.dart';
-import 'package:review_ecommerce/core/constants/app_style.dart';
 import 'package:review_ecommerce/features/account/views/account_view.dart';
 import 'package:review_ecommerce/features/cart/views/cart_product_view.dart';
 import 'package:review_ecommerce/features/home/views/home_page_view.dart';
@@ -15,7 +14,7 @@ class MainHomeView extends StatefulWidget {
 }
 
 class _MainHomeViewState extends State<MainHomeView> {
-  int _currentIndex = 0;
+  int currentIndex = 0;
 
   final List<Widget> pages = const [
     HomePageView(),
@@ -26,45 +25,79 @@ class _MainHomeViewState extends State<MainHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_currentIndex],
+      body: pages[currentIndex],
 
-      bottomNavigationBar: CircleNavBar(
-        activeIndex: _currentIndex,
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.all(12.sp),
+        decoration: BoxDecoration(
+          color: AppColor.primaycolor,
+          borderRadius: BorderRadius.circular(25.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 12.r,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25.r),
+          child: NavigationBarTheme(
+            data: NavigationBarThemeData(
+              backgroundColor: AppColor.primaycolor,
+              indicatorColor: Colors.deepOrangeAccent,
 
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+              labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                return TextStyle(
+                  color: Colors.white,
+                  fontSize: states.contains(WidgetState.selected)
+                      ? 15.sp
+                      : 13.sp,
+                  fontWeight: states.contains(WidgetState.selected)
+                      ? FontWeight.bold
+                      : FontWeight.w500,
+                );
+              }),
 
-        activeIcons: [
-          Icon(Icons.home, color: AppColor.whitecolor),
-          Icon(Icons.shopping_cart, color: AppColor.whitecolor),
-          Icon(Icons.person, color: AppColor.whitecolor),
-        ],
+              iconTheme: WidgetStateProperty.resolveWith((states) {
+                return IconThemeData(
+                  color: Colors.white,
+                  size: states.contains(WidgetState.selected) ? 28.sp : 24.sp,
+                );
+              }),
+            ),
+            child: NavigationBar(
+              selectedIndex: currentIndex,
 
-        inactiveIcons: const [
-          Icon(Icons.home_outlined, color: AppColor.whitecolor),
-          Icon(Icons.shopping_cart, color: AppColor.whitecolor),
-          Icon(Icons.person_outline, color: AppColor.whitecolor),
-        ],
+              onDestinationSelected: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
 
-        levels: const ["Home", "Cart", "Account"],
+              height: 75.h,
 
-        activeLevelsStyle: AppStyle.selecttext,
+              destinations: [
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.home),
+                  icon: const Icon(Icons.home_outlined),
+                  label: "home".tr(),
+                ),
 
-        color: AppColor.primaycolor,
-        circleColor: Colors.deepOrangeAccent,
-        height: 90.h,
-        circleWidth: 55.w,
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.shopping_cart),
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  label: "cart".tr(),
+                ),
 
-        elevation: 0,
-
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-
-        cornerRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.person),
+                  icon: const Icon(Icons.person_outline),
+                  label: "account".tr(),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

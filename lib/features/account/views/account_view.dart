@@ -1,9 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:review_ecommerce/core/constants/app_color.dart';
 import 'package:review_ecommerce/core/constants/app_style.dart';
+import 'package:review_ecommerce/core/helper/cach_helper.dart';
 import 'package:review_ecommerce/core/routing/app_route.dart';
 import 'package:review_ecommerce/features/account/widget/list_tile_cart.dart';
 
@@ -14,7 +16,7 @@ class AccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Account", style: AppStyle.titleApp),
+        title: Text("account".tr(), style: AppStyle.titleApp),
         centerTitle: true,
       ),
       body: Padding(
@@ -23,25 +25,43 @@ class AccountView extends StatelessWidget {
           children: [
             Divider(),
             SizedBox(height: 5.h),
-            ListTileCart(icon: Icons.card_membership_sharp, text: "My Order"),
+            ListTileCart(
+              icon: Icons.card_membership_sharp,
+              text: "my_order".tr(),
+            ),
             Divider(thickness: 3.sp, color: AppColor.subTitleColor),
             SizedBox(height: 5.h),
-            ListTileCart(icon: Icons.person, text: "Edit Person"),
+            ListTileCart(icon: Icons.person, text: "edit_person".tr()),
             Divider(),
             SizedBox(height: 5.h),
             ListTileCart(
               icon: Icons.home,
-              text: "Address Book",
+              text: "address_book".tr(),
               onTap: () => context.pushNamed(RouteName.addreessName),
             ),
             Divider(),
             SizedBox(height: 5.h),
-            ListTileCart(icon: Icons.question_mark_sharp, text: "FAQs"),
+            ListTileCart(icon: Icons.question_mark_sharp, text: "fAQs".tr()),
             Divider(),
             SizedBox(height: 5.h),
-            ListTileCart(icon: Icons.help_center_rounded, text: "Help Center"),
+            ListTileCart(
+              icon: Icons.help_center_rounded,
+              text: "help_center".tr(),
+            ),
             SizedBox(height: 5.h),
             Divider(thickness: 3.sp, color: AppColor.borderfield),
+            SizedBox(height: 5.h),
+            ListTileCart(
+              icon: Icons.translate,
+              text: "translate".tr(),
+              onTap: () async {
+                if (context.locale.languageCode == 'en') {
+                  await context.setLocale(const Locale('ar'));
+                } else {
+                  await context.setLocale(const Locale('en'));
+                }
+              },
+            ),
             Spacer(),
             ListTile(
               onTap: () {
@@ -49,22 +69,23 @@ class AccountView extends StatelessWidget {
                   context: context,
                   dialogType: DialogType.warning,
                   animType: AnimType.scale,
-                  title: "Log Out",
-                  desc: "Are you sure you want to log out?",
-                  btnCancelText: "Cancel",
-                  btnCancelColor: Colors.greenAccent,
+                  title: "log_out".tr(),
+                  desc: "are_you_sure_you_want_to_log_out?".tr(),
+                  btnCancelText: "cancel".tr(),
+                  btnCancelColor: Colors.grey,
                   btnCancelOnPress: () {},
-                  btnOkText: "Log Out",
+                  btnOkText: "log_out".tr(),
                   btnOkColor: Colors.red,
 
                   btnOkOnPress: () {
+                    CachHelper.deleteToken();
                     context.goNamed(RouteName.loginName);
                   },
                 ).show();
               },
               leading: Icon(Icons.logout, color: Colors.red, size: 24.sp),
               title: Text(
-                "Log out",
+                "log_out".tr(),
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 20.sp,

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ class CartProductView extends StatelessWidget {
       create: (_) => CartCubit(CartServices(dio: Dio()))..getCart(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text("My Cart", style: AppStyle.titleApp),
+          title: Text("my_cart".tr(), style: AppStyle.titleApp),
           centerTitle: true,
           scrolledUnderElevation: 0,
           elevation: 0,
@@ -67,14 +68,14 @@ class CartProductView extends StatelessWidget {
                         child: Column(
                           children: [
                             RowPrice(
-                              text: "Sub Total",
+                              text: "sub_total".tr(),
                               price: cart.total!.toStringAsFixed(1),
                             ),
 
                             SizedBox(height: 16.h),
 
                             RowPrice(
-                              text: "Discount",
+                              text:  "discount".tr(),
                               price: (cart.total! - cart.discountedTotal!)
                                   .toStringAsFixed(1),
                             ),
@@ -82,7 +83,7 @@ class CartProductView extends StatelessWidget {
                             SizedBox(height: 16.h),
 
                             RowPrice(
-                              text: "Items",
+                              text: "items".tr(),
                               price: cart.totalProducts.toString(),
                             ),
 
@@ -94,7 +95,7 @@ class CartProductView extends StatelessWidget {
 
                             Row(
                               children: [
-                                Text("Total", style: AppStyle.textfield),
+                                Text("total".tr(), style: AppStyle.textfield),
                                 const Spacer(),
                                 Text(
                                   "\$${cart.discountedTotal!.toStringAsFixed(1)}",
@@ -109,7 +110,7 @@ class CartProductView extends StatelessWidget {
 
                     SizedBox(height: 16.h),
 
-                    Custombutton(buttonName: "Checkout", onPressed: () {}),
+                    Custombutton(buttonName: "checkout".tr(), onPressed: () {}),
                   ],
                 ),
               );

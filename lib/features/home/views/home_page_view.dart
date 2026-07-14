@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,7 +59,7 @@ class _HomePageViewState extends State<HomePageView> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomAppbar(title: "Discover"),
+                      CustomAppbar(title: "discover".tr()),
 
                       SizedBox(height: 16.h),
 
@@ -66,7 +67,7 @@ class _HomePageViewState extends State<HomePageView> {
                         children: [
                           Expanded(
                             child: CustomTextField(
-                              hint: "Search",
+                              hint: "search".tr(),
                               prefixicon: const Icon(Icons.search),
                             ),
                           ),

@@ -11,9 +11,10 @@ import 'package:review_ecommerce/features/address/views/addressview.dart';
 import 'package:review_ecommerce/features/home/views/main_home_view.dart';
 import 'package:review_ecommerce/features/models/home_modal.dart';
 import 'package:review_ecommerce/features/product_details/product_details.dart';
+import 'package:review_ecommerce/features/splash/splash_view.dart';
 
 GoRouter goRouter = GoRouter(
-  initialLocation: RoutePath.loginPath,
+  initialLocation: RoutePath.splashScreen,
   routes: [
     GoRoute(
       path: RoutePath.loginPath,
@@ -42,10 +43,15 @@ GoRouter goRouter = GoRouter(
         return ProductDetails(homemodel: homemodel);
       },
     ),
-     GoRoute(
+    GoRoute(
       path: RoutePath.addreessPath,
       name: RouteName.addreessName,
       builder: (context, state) => Addressview(),
+    ),
+    GoRoute(
+      path: RoutePath.splashScreen,
+      name: RouteName.splashScreen,
+      builder: (context, state) => SplashView(),
     ),
   ],
 );

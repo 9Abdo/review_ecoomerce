@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -43,51 +44,63 @@ class _SignupViewState extends State<SignupView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   CustomAppbar(title: "Create an account"),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if (context.locale.languageCode == 'en') {
+                            await context.setLocale(const Locale('ar'));
+                          } else {
+                            await context.setLocale(const Locale('en'));
+                          }
+                        },
+                        child: Text("switch Language"),
+                      ),
+                    ),
+                    CustomAppbar(title: "create_an_account".tr()),
                     SizedBox(height: 8.h),
                     Text(
-                      "Let’s create your account.",
+                      "lets_create_your_account".tr(),
                       style: AppStyle.subtitle,
                     ),
                     SizedBox(height: 24.sp),
-                    Text("Full Name", style: AppStyle.textfield),
+                    Text("full_name".tr(), style: AppStyle.textfield),
                     SizedBox(height: 8.h),
                     CustomTextField(
                       controller: fullNameController,
-                      hint: "Enter your Full Name",
+                      hint: "enter_your_full_name".tr(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This is Field is Requried";
+                          return "required_field".tr();
                         }
                         return null;
                       },
                     ),
                     SizedBox(height: 16.h),
-                    Text("User Name", style: AppStyle.textfield),
+                    Text("user_name".tr(), style: AppStyle.textfield),
                     SizedBox(height: 8.h),
                     CustomTextField(
                       controller: emailController,
-                      hint: "Enter your Email address",
+                      hint: "enter_your_email_address".tr(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This is Field is Requried";
+                          return "required_field".tr();
                         } else if (!value.endsWith("@gmail.com")) {
-                          return "Field Must be End With @gmail.com";
+                          return "email_must_end_with_gmail".tr();
                         }
                         return null;
                       },
                     ),
                     SizedBox(height: 16.h),
-                    Text("PassWord", style: AppStyle.textfield),
+                    Text("password".tr(), style: AppStyle.textfield),
                     SizedBox(height: 8.h),
                     CustomTextField(
                       controller: passwordController,
-                      hint: "Enter your Password",
+                      hint: "enter_your_password".tr(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This is Field is Required";
+                          return "required_field".tr();
                         } else if (value.length < 8) {
-                          return "PassWord Must be greater than 8";
+                          return "password_must_be_greater_than_8".tr();
                         }
                         return null;
                       },
@@ -104,19 +117,19 @@ class _SignupViewState extends State<SignupView> {
                       ),
                     ),
                     SizedBox(height: 16.h),
-                    Text("Confirm PassWord", style: AppStyle.textfield),
+                    Text("confirm_password".tr(), style: AppStyle.textfield),
                     SizedBox(height: 8.h),
                     CustomTextField(
-                      hint: "Enter your Confirm Password",
+                      hint: "enter_your_confirm_password".tr(),
                       controller: confirmpassword,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "This is Field is Required";
+                          return "required_field".tr();
                         } else if (value.length < 8) {
-                          return "PassWord Must be greater than 8";
+                          return "password_must_be_greater_than_8".tr();
                         } else if (value.toString() !=
                             passwordController.text) {
-                          return "Confirm Password Must be match Password";
+                          return "confirm_password_must_match".tr();
                         }
                         return null;
                       },
@@ -134,7 +147,7 @@ class _SignupViewState extends State<SignupView> {
                     ),
                     SizedBox(height: 40.h),
                     Custombutton(
-                      buttonName: "Create Account",
+                      buttonName: "create_account".tr(),
                       onPressed: () async {
                         if (formstate.currentState!.validate()) {
                           setState(() {
@@ -147,7 +160,7 @@ class _SignupViewState extends State<SignupView> {
 
                           showSankBar(
                             context,
-                            text: "Successful",
+                            text: "successful".tr(),
                             color: Colors.greenAccent,
                           );
                         }
@@ -155,8 +168,8 @@ class _SignupViewState extends State<SignupView> {
                     ),
                     SizedBox(height: 70.h),
                     RowAuth(
-                      text: "Already have an account? ",
-                      buttontransfer: "Log in",
+                      text: "already_have_an_account".tr(),
+                      buttontransfer: "log_in".tr(),
                       onTap: () {
                         context.pushReplacementNamed(RouteName.loginName);
                       },
